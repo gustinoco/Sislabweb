@@ -1,0 +1,10 @@
+{
+    "elements": {
+        "form": {}
+    },
+    "attributes": {
+        "value": {
+            "context": "a"
+        }
+    }
+}

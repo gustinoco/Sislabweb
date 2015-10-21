@@ -1,0 +1,7 @@
+In any folder of your choice , create the structure a shown below :
+/
+-> connection.php (file)
+-> reader.php (file)
+-> example.php (file)
+-> oleread.inc (file)
+-> uploaded_files (folder)
