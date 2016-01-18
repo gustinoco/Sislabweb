@@ -7,7 +7,8 @@ $dao4 = new Solo();
 
 
 
-
+//recebe ID do boletim para deletar ele, caso exista solos os IDS do boletim na tabela de solos serão mudadas para Nulo.
+//Exibe mensagem de confirmação de sucesso na pagina de registro dos boletins.
 if (isset($_GET['deletar'])) {
     $idBoletim = (int) $_GET['deletar'];
     $verifica = $dao4->listar_solo_idboletim($idBoletim);
@@ -29,6 +30,7 @@ if (isset($_GET['deletar'])) {
 
     exit;
 }
+//fim metodo de exclusão de boltim
 
 
 //converte checkbox pesquisa para true ou false (0 ou 1)
@@ -37,14 +39,8 @@ if (strcasecmp($_POST["Pesquisa"], "true") == 0) {
 } else {
     $POST["Pesquisa"] = 0;
 }
+//fim deletação
 
-function floattostr($val) {
-    preg_match("#^([\+\-]|)([0-9]*)(\.([0-9]*?)|)(0*)$#", trim($val), $o);
-    return $o[1] . sprintf('%d', $o[2]) . ($o[3] != '.' ? $o[3] : '');
-}
-
-//converter input valor para Float 
-$_POST["Valor"] = floattostr($_POST["Valor"]);
 
 
 
@@ -52,6 +48,7 @@ $_POST["Valor"] = floattostr($_POST["Valor"]);
 
 
 //Pega campos em comun do boletim e adiciona.
+
 if (isset($_POST) AND ( count($_POST) > 0)) {
     $boletim = new BoletimSolo();
     $boletim->mapear($_POST);
@@ -60,20 +57,50 @@ if (isset($_POST) AND ( count($_POST) > 0)) {
         $dao->editar($boletim);
         $id_solo = $boletim->Id;
     } else {
-        $id_solo = $dao->salvar($boletim);
+        $id_solo = $dao->salvar($boletim); //salva o boletim com os dados principais.
+        
+        //faz as inserções das amostras no boletim de acordo com campos inseridos 
         (int) $intervalor1 = $_POST["Intervalo1"];
         (int) $intervalor2 = $_POST["Intervalo2"];
+        $identificacao = $_POST["Identificacao"];
+        $aux = 0;
+
+        if (strcmp($_POST['Rotina'], "true") == 0) {
+            $_POST["Rotina"] = 1;
+        } else {
+            $_POST["Rotina"] = 0;
+        }
+
+        if (strcmp($_POST['Mo'], "true") == 0) {
+            $_POST["Mo"] = 1;
+        } else {
+            $_POST["Mo"] = 0;
+        }
+
+        if (strcmp($_POST['Micro'], "true") == 0) {
+            $_POST["Micro"] = 1;
+        } else {
+            $_POST["Micro"] = 0;
+        }
+
+        if (strcmp($_POST['Textura'], "true") == 0) {
+            $_POST["Textura"] = 1;
+        } else {
+            $_POST["Textura"] = 0;
+        }
         if ($intervalor1 == 0) {
             
         } else {
             for ($i = $intervalor1; $i <= $intervalor2; $i++) {
-                $dao4->salvar_nulo($i, $_POST['Pesquisador'], $id_solo);
+                $aux++;
+                $dao4->salvar_nulo($i, $_POST['Pesquisador'], $id_solo, $aux . "-" . $identificacao, $_POST["Rotina"], $_POST["Mo"], $_POST["Micro"], $_POST["Textura"]);
             }
         }
     }
 }
 
-//Faz a leitura das amostras inseridas e edita as amostras dos campos que são mostrados e vinculados ao IDBOLETIM retornado da ultima inserção pelo lastInsertId
+//Faz a leitura das amostras inseridas e edita as amostras dos campos que são mostrados e vinculados ao IDBOLETIM retornado 
+//da ultima inserção pelo lastInsertId
 if (isset($_POST["myInputs"])) {
     $listas = $_POST["myInputs"];
     foreach ($listas as $res) {

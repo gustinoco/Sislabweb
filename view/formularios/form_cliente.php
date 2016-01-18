@@ -34,7 +34,7 @@ include '../../view/template/cabecalho.php';
         $("body").append(txt1, txt2, txt3); // Append new elements
     }
 
-   $(document).ready(function () {
+    $(document).ready(function () {
         $('#Cep').mask('00000-000');
         $('#Fone').mask('(00) 0000-0000');
         $('#Fax').mask('(00) 0000-0000');
@@ -103,8 +103,7 @@ include '../../view/template/cabecalho.php';
         if (num == 0) {
             frm.Cpf.style.visibility = 'visible';
             frm.Cnpj.style.visibility = 'hidden';
-        }
-        else {
+        } else {
             frm.Cpf.style.visibility = 'hidden';
             frm.Cnpj.style.visibility = 'visible';
         }
@@ -191,7 +190,7 @@ include '../../view/template/cabecalho.php';
                 <div class="alert alert-success fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <?php echo $_SESSION['mensagem']; ?></div>
-                    <?php
+                <?php
                 unset($_SESSION['mensagem']);
             }
 
@@ -201,7 +200,7 @@ include '../../view/template/cabecalho.php';
                 <div class="alert alert-danger fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <?php echo $_SESSION['mensagem_erro']; ?></div>
-                    <?php
+                <?php
                 unset($_SESSION['mensagem_erro']);
             }
             ?>
@@ -225,10 +224,10 @@ include '../../view/template/cabecalho.php';
                                 <label class="control-label col-md-1" for="txtUsuario">Nome:</label>
                                 <div class="col-sm-11">
                                     <input name="Nome" id="Nome" type="text" class="form-control" style="width: 250px;" value="<?php
-            if (isset($editar)) {
-                echo $cliente->Nome;
-            }
-            ?>">
+                                    if (isset($editar)) {
+                                        echo $cliente->Nome;
+                                    }
+                                    ?>">
 
                                 </div>
                             </div>
@@ -243,7 +242,7 @@ include '../../view/template/cabecalho.php';
                                     if (isset($editar)) {
                                         echo $cliente->Cpf;
                                     }
-            ?>" /> 
+                                    ?>" /> 
                                 </div>
                                 <p>
                                     <label class="control-label col-md-1" for="cpf">Cnpj:</label>
@@ -252,7 +251,7 @@ include '../../view/template/cabecalho.php';
                                     if (isset($editar)) {
                                         echo $cliente->Cnpj;
                                     }
-            ?>" />
+                                    ?>" />
                                 </div>
                             </div>
 
@@ -263,7 +262,7 @@ include '../../view/template/cabecalho.php';
                                     if (isset($editar)) {
                                         echo $cliente->Email;
                                     }
-            ?>">
+                                    ?>">
                                 </div>
                             </div>
 
@@ -272,10 +271,10 @@ include '../../view/template/cabecalho.php';
                                 <div class="col-sm-11">            
                                     <input name="Celular" id="Celular" 
                                            maxlength="16" type="text" class="form-control"  style="width: 200px" value="<?php
-                                    if (isset($editar)) {
-                                        echo $cliente->Celular;
-                                    }
-            ?>">
+                                           if (isset($editar)) {
+                                               echo $cliente->Celular;
+                                           }
+                                           ?>">
                                 </div>
                             </div>
 
@@ -283,10 +282,10 @@ include '../../view/template/cabecalho.php';
                                 <label class="control-label col-md-1"  for="telefone">Telefone:</label>
                                 <div class="col-sm-11">
                                     <input name="Fone"  maxlength="16"  id="Fone" type="text" class="form-control"  style="width: 200px" value="<?php
-                                           if (isset($editar)) {
-                                               echo $cliente->Fone;
-                                           }
-            ?>">
+                                    if (isset($editar)) {
+                                        echo $cliente->Fone;
+                                    }
+                                    ?>">
                                 </div>
                             </div>
 
@@ -297,7 +296,7 @@ include '../../view/template/cabecalho.php';
                                     if (isset($editar)) {
                                         echo $cliente->Fax;
                                     }
-            ?>">
+                                    ?>">
                                 </div>
                             </div>
 
@@ -308,7 +307,7 @@ include '../../view/template/cabecalho.php';
                                     if (isset($editar)) {
                                         echo $cliente->Endereco;
                                     }
-            ?>">
+                                    ?>">
                                 </div>
                             </div>
 
@@ -320,7 +319,7 @@ include '../../view/template/cabecalho.php';
                                     if (isset($editar)) {
                                         echo $cliente->Cidade;
                                     }
-            ?>">
+                                    ?>">
                                 </div>
                             </div>
 
@@ -331,7 +330,7 @@ include '../../view/template/cabecalho.php';
                                     if (isset($editar)) {
                                         echo $cliente->Estado;
                                     }
-            ?>">
+                                    ?>">
                                 </div>
                             </div>
 
@@ -340,10 +339,10 @@ include '../../view/template/cabecalho.php';
                                 <div class="col-sm-11">
                                     <input name="Cep" id="Cep"
                                            maxlength="10"  type="text" class="form-control"  style="width: 200px" value="<?php
-                                    if (isset($editar)) {
-                                        echo $cliente->Cep;
-                                    }
-            ?>">
+                                           if (isset($editar)) {
+                                               echo $cliente->Cep;
+                                           }
+                                           ?>">
                                 </div>
                             </div>
 
@@ -359,7 +358,7 @@ include '../../view/template/cabecalho.php';
                             <?php
                             if (isset($editar)) {
                                 foreach ($propriedades as $propriedade) {
-                                     $contador_Amostras++
+                                    $contador_Amostras++
                                     ?>
                                     <hr> 
                                     <input name="myInputs[<?php echo $contador_Amostras ?>][Id]" type="hidden" value="<?php echo $propriedade->Id; ?>" />
@@ -407,7 +406,7 @@ include '../../view/template/cabecalho.php';
 
 
                                 <button class="btn btn-default center-block" type="submit" style="width: 250px">Cadastrar</button>
-<?php } ?>
+                            <?php } ?>
                         </form>
 
 
@@ -445,7 +444,7 @@ include '../../view/template/cabecalho.php';
 
                                 <tr>
                                     <td> 
-    <?php echo $res->Nome; ?>
+                                        <?php echo $res->Nome; ?>
                                     </td>
 
                                     <td> 
@@ -459,23 +458,23 @@ include '../../view/template/cabecalho.php';
                                     </td>
 
                                     <td> 
-    <?php echo $res->Fone; ?>
+                                        <?php echo $res->Fone; ?>
                                     </td>
 
                                     <td> 
-    <?php echo $res->Celular; ?>
+                                        <?php echo $res->Celular; ?>
                                     </td>
 
                                     <td> 
-    <?php echo $res->Email; ?>
+                                        <?php echo $res->Email; ?>
                                     </td>
 
                                     <td> 
-    <?php echo $res->Cidade; ?>
+                                        <?php echo $res->Cidade; ?>
                                     </td>
 
                                     <td> 
-    <?php echo $res->Estado; ?>
+                                        <?php echo $res->Estado; ?>
                                     </td>
 
                                     <td> 
@@ -510,7 +509,7 @@ include '../../view/template/cabecalho.php';
                                     </td>
 
                                 </tr>
-<?php } ?> 
+                            <?php } ?> 
 
                         </table>
 

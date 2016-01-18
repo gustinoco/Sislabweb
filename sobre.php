@@ -1,6 +1,6 @@
 <?php
 $page_title = 'SisLabWeb 1.0 - Sobre';
-include '/view/template/cabecalho.php';
+include 'view/template/cabecalho.php';
 ?>
 
 <div class="row">

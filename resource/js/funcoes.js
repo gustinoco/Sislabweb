@@ -47,7 +47,7 @@ function confirmacao_cliente(id, nome, url) {
 
 function confirmacao_pesquisador(id, nome, url) {
     
-     var resposta = confirm("Deseja excluir o cliente: "+ nome +"?");
+     var resposta = confirm("Deseja excluir o Pesquisador: "+ nome +"?");
     
      if (resposta == true || resposta2 == true) {
           window.location.href = url+"?deletar="+id;

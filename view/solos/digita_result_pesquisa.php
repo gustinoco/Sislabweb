@@ -78,10 +78,9 @@ $ultimoId = $dao->lista_ultimo_id();
             
                 <div class="page-header">
                     <br><br><br>
-                    <center><h1>Digita Resultado Pesquisa</h1></center>
+                    <center><h1>Entrada manual de dados</h1></center>
                 </div>
                 <form name="form" method="post" enctype="multipart/form-data" action="salvar_solo.php">
-
                     <center>
                         <fieldset class="grupo">
                             <div class="campo">
@@ -110,12 +109,10 @@ $ultimoId = $dao->lista_ultimo_id();
                                 <input type="text" id="Ca" name="Ca" style="width: 5em" value="" />
                             </div>
 
-
                             <div class="campo">
                                 <label>Mg</label>
                                 <input type="text" id="Mg" name="Mg" style="width: 5em" value="" />
                             </div>
-
 
                             <div class="campo">
                                 <label>H +Al3</label>
@@ -124,26 +121,12 @@ $ultimoId = $dao->lista_ultimo_id();
 
                             <div class="campo">
                                 <label>K+ (mg dm-3)</label>
-                                <input type="text" id="Kmgdm3" name="Kmgdm3" style="width: 7em" value="" />
+                                <input type="text" id="K" name="K" style="width: 7em" value="" />
                             </div>
-
-
-                            <div class="campo">
-                                <label>Fator</label>
-                                <input type="text" id="Fator" name="Fator" style="width: 5em" value="" />
-                            </div>
-
 
                             <div class="campo">
                                 <label>P (Mehl.)</label>
                                 <input type="text" id="Pmehl" name="Pmehl" style="width: 6em" value="" />
-                            </div>
-
-
-
-                            <div class="campo">
-                                <label>P (Resin)</label>
-                                <input type="text" id="Presin" name="Presin" style="width: 6em" value="" />
                             </div>
 
                             <div class="campo">
@@ -151,24 +134,20 @@ $ultimoId = $dao->lista_ultimo_id();
                                 <input type="text" id="Cu" name="Cu" style="width: 5em" value="" />
                             </div>
 
-
                             <div class="campo">
                                 <label>Fe</label>
                                 <input type="text" id="Fe" name="Fe" style="width: 5em" value="" />
                             </div>
-
 
                             <div class="campo">
                                 <label>Mn</label>
                                 <input type="text" id="Mn" name="Mn" style="width: 5em" value="" />
                             </div>
 
-
                             <div class="campo">
                                 <label>Zn</label>
                                 <input type="text" id="Zn" name="Zn" style="width: 5em" value="" />
                             </div>
-
 
                             <div class="campo">
                                 <label>B</label>
@@ -176,58 +155,25 @@ $ultimoId = $dao->lista_ultimo_id();
                             </div>
 
                             <div class="campo">
-                                <label>Normalidade</label>
-                                <input type="text" id="Normalidade" name="Normalidade" style="width: 7em" value="" />
+                                <label>Mo</label>
+                                <input type="text" id="Materia_organica" name="Materia_organica" style="width: 7em" value="" />
                             </div>
 
+                                                  <div class="campo">
+                                <label>Areia</label>
+                                <input type="text" id="Areia" name="Areia" style="width: 5em" value="" />
+                            </div>
 
                             <div class="campo">
-                                <label>Massa</label>
-                                <input type="text" id="Massa" name="Massa" style="width: 5em" value="" />
+                                <label>Silte</label>
+                                <input type="text" id="Silte" name="Silte" style="width: 5em" value="" />
                             </div>
-
 
                             <div class="campo">
-                                <label>Vol. Gasto Padr.</label>
-                                <input type="text" id="Vol_gasto" name="Vol_gasto" style="width: 8em" value="" />
+                                <label>Argila</label>
+                                <input type="text" id="Argila" name="Argila" style="width: 5em" value="" />
                             </div>
-
-
-                            <div class="campo">
-                                <label>Dicromato</label>
-                                <input type="text" id="Dicromato" name="Dicromato" style="width: 6em" value="" />
-                            </div>
-
-
-                            <div class="campo">
-                                <label>TOC</label>
-                                <input type="text" id="Toc" name="Toc" style="width: 5em" value="" />
-                            </div>
-
-
-                            <div class="campo">
-                                <label>1ª Leitura</label>
-                                <input type="text" id="Leitura1" name="Leitura1" style="width: 5em" value="" />
-                            </div>
-
-
-                            <div class="campo">
-                                <label>1ª temp.</label>
-                                <input type="text" id="Temp1" name="Temp1" style="width: 5em" value="" />
-                            </div>
-
-
-                            <div class="campo">
-                                <label>2ª leitura</label>
-                                <input type="text" id="Leitura2" name="Leitura2" style="width: 5em" value="" />
-                            </div>
-
-
-                            <div class="campo">
-                                <label>2º temp.</label>
-                                <input type="text" id="Temp2" name="Temp2" style="width: 5em" value="" />
-                            </div>
-
+                         
                             <div class="campo">
                                 <br>
                                 <button class="btn-xs btn-success" type="submit" name="submit">Salvar</button>
@@ -235,15 +181,7 @@ $ultimoId = $dao->lista_ultimo_id();
                         </fieldset>              
                     </center>
                 </form>
-
             </div>
 
-        
-
-
-
-
-
-<?php
+        <?php
 include '../../view/template/rodape.php';
-?>

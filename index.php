@@ -10,17 +10,18 @@ include 'view/template/cabecalho.php';
 
         <div class="page-header">
             <center><h1>SisLabWeb - Login</h1></center>
+            
         </div> 
         
         <form method="post" action="view/validacao.php">
                 <center>
                     <label>Usuario:</label>
-                    <input name="Usuario" id="txtUsuario" type="text" class="form-control well" style="width: 250px;">
+                    <input name="Usuario" id="txtUsuario" type="text" class="form-control well" style="width: 250px; height: 60px">
 
                     <br />
                     
                     <label>Senha:</label>
-                    <input name="Senha" id="txtSenha" type="password" class="form-control well"  style="width: 200px">
+                    <input name="Senha" id="txtSenha" type="password" class="form-control well"  style="width: 200px; height: 60px">
                 </center>
             
                 <br /><br />

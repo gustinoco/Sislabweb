@@ -4,17 +4,16 @@ require_once '../../view/restrito.php';
 $dao = new Solo();
 $usuario = $_SESSION['usuarioNome'];
 if (isset($_GET['id'])) {
-    $solos = $dao->listar_solo_com_id_boletim_usuario((int) $_GET['id'], $usuario);
+    $solos = $dao->listar_solo_idboletim((int) $_GET['id']);
     $page_title = "SISLABWEB 1.0 - Editar amostra = " . $_GET['id'];
 } else {
 
     if ($_SESSION['Permissao'] == "0") {
-                            $solos=$dao->listar_todos_solo();
-                        }
-                        else{
-                            $solos = $dao->listar_solo($usuario);
-                        }
-    
+        $solos = $dao->listar_todos_solo();
+    } else {
+        $solos = $dao->listar_solo($usuario);
+    }
+
     $page_title = "SISLABWEB 1.0 - Todas amostras";
 }
 
@@ -25,7 +24,7 @@ include '../../view/template/cabecalho.php';
     $(document).ready(function () {
         $('#example').dataTable({
             "bProcessing": true,
-            "bPaginate": false, 
+            "bPaginate": false,
             "bStateSave": true
 
 
@@ -96,9 +95,7 @@ include '../../view/template/cabecalho.php';
 
             <div class="page-header">
 
-
-
-                <center><h1>Digita Resultado Pesquisas Externas</h1></center>
+                <center><h1>Resultado Pesquisas Externas</h1></center>
             </div>
             <table  cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-condensed" id="example">
 
@@ -112,25 +109,20 @@ include '../../view/template/cabecalho.php';
                         <th>Ca</th>
                         <th>Mg</th>
                         <th>HAl3</th>
-                        <th>Kmgdm3</th>
-                        <th>Fator</th>
+                        <th>K</th>
                         <th>PMehl</th>
-                        <th>PResin</th>
                         <th>Cu</th>
                         <th>Fe</th>
                         <th>Mn</th>
                         <th>Zn</th>
                         <th>B</th>
-                        <th>Normalidade</th>
-                        <th>Massa</th>
-                        <th>VolGasto</th>
-                        <th>Dicromato</th>
-                        <th>TOC</th>
-                        <th>Leitura1</th>
-                        <th>Temp1</th>
-                        <th>Leitura2</th>
-                        <th>Temp2</th>
-                        <?php if ($_SESSION['Permissao'] == "0") {
+                        <th>Mo</th>
+                        <th>Areia</th>
+                        <th>Silte</th>
+                        <th>Argila</th>
+
+                        <?php
+                        if ($_SESSION['Permissao'] == "0") {
                             echo'<th>Ações</th>';
                         }
                         ?>
@@ -187,13 +179,11 @@ include '../../view/template/cabecalho.php';
                             </div></td>
 
                         <td> <div class="campo">
-                                <input type="text" id="Kmgdm3" name="Kmgdm3" style="width: 7em" value="<?php echo $res->Kmgdm3; ?>" />
+                                <input type="text" id="K" name="K" style="width: 7em" value="<?php echo $res->K; ?>" />
                             </div></td>
 
 
-                        <td> <div class="campo">
-                                <input type="text" id="Fator" name="Fator" style="width: 5em" value="<?php echo $res->Fator; ?>" />
-                            </div></td>
+                        
 
 
                         <td>  <div class="campo">
@@ -201,10 +191,6 @@ include '../../view/template/cabecalho.php';
                             </div></td>
 
 
-
-                        <td> <div class="campo">
-                                <input type="text" id="Presin" name="Presin" style="width: 6em" value="<?php echo $res->Presin; ?>" />
-                            </div></td>
 
                         <td> <div class="campo">
                                 <input type="text" id="Cu" name="Cu" style="width: 5em" value="<?php echo $res->Cu; ?>" />
@@ -231,55 +217,34 @@ include '../../view/template/cabecalho.php';
                             </div></td>
 
                         <td>  <div class="campo">
-                                <input type="text" id="Normalidade" name="Normalidade" style="width: 7em" value="<?php echo $res->Normalidade; ?>" />
+                                <input type="text" id="Materia_organica" name="Materia_organica" style="width: 7em" value="<?php echo $res->Materia_organica; ?>" />
                             </div></td>
 
 
-                        <td>  <div class="campo">
-                                <input type="text" id="Massa" name="Massa" style="width: 5em" value="<?php echo $res->Massa; ?>" />
-                            </div></td>
-
+                        
 
                         <td>   <div class="campo">
-                                <input type="text" id="Vol_gasto" name="Vol_gasto" style="width: 8em" value="<?php echo $res->Vol_gasto; ?>" />
-                            </div></td>
-
-
-                        <td>  <div class="campo">
-                                <input type="text" id="Dicromato" name="Dicromato" style="width: 6em" value="<?php echo $res->Dicromato; ?>" />
-                            </div></td>
-
-
-                        <td>   <div class="campo">
-                                <input type="text" id="Toc" name="Toc" style="width: 5em" value="<?php echo $res->Toc; ?>" />
-                            </div></td>
-
-
-                        <td>   <div class="campo">
-                                <input type="text" id="Leitura1" name="Leitura1" style="width: 5em" value="<?php echo $res->Leitura1; ?>" />
+                                <input type="text" id="Areia" name="Areia" style="width: 5em" value="<?php echo $res->Areia; ?>" />
                             </div></td>
 
 
                         <td> <div class="campo">
-                                <input type="text" id="Temp1" name="Temp1" style="width: 5em" value="<?php echo $res->Temp1; ?>" />
+                                <input type="text" id="Silte" name="Silte" style="width: 5em" value="<?php echo $res->Silte; ?>" />
                             </div></td>
 
 
                         <td>   <div class="campo">
-                                <input type="text" id="Leitura2" name="Leitura2" style="width: 5em" value="<?php echo $res->Leitura2; ?>" />
+                                <input type="text" id="Argila" name="Argila" style="width: 5em" value="<?php echo $res->Argila; ?>" />
                             </div></td>
 
 
-                        <td>  <div class="campo">
-                                <input type="text" id="Temp2" name="Temp2" style="width: 5em" value="<?php echo $res->Temp2; ?>" />
-                            </div></td>
-  <?php
-                            if ($_SESSION['Permissao'] == "0") {
-                                ?>
-                        <td>  
-                            <input class="btn btn-xs btn-success" value="Editar" type="submit" name="submit">
+                        <?php
+                        if ($_SESSION['Permissao'] == "0") {
+                            ?>
+                            <td>  
+                                <input class="btn btn-xs btn-success" value="Editar" type="submit" name="submit">
 
-                          
+
                                 <a onclick="confirmacao(<?php echo $res->Id; ?>,<?php
                                 if ($res->Id_boletim > 0) {
                                     echo $res->Id_boletim;
@@ -289,10 +254,10 @@ include '../../view/template/cabecalho.php';
                                 ?>, 'salvar_solo.php')" class="btn btn-xs btn-danger"  value="Excluir" >Excluir</a>
 
 
-                        </td>
-                        <?php
-                               }
-                               ?>        
+                            </td>
+                            <?php
+                        }
+                        ?>        
                     </form>
                     </tr>
                 <?php } ?> 
@@ -309,7 +274,7 @@ include '../../view/template/cabecalho.php';
     }
     ?>
 
-    <a href="formularios/form_boletim_solo.php" class="btn btn-lg btn-primary" role="button">Exportar para excel</a></p>
+
 
 
 
@@ -329,11 +294,6 @@ include '../../view/template/cabecalho.php';
         }
         ?>
 </div>
-
-
-
-
-
 
 
 <?php

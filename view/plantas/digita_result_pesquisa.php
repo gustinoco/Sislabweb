@@ -1,6 +1,13 @@
 <?php
-$page_title = "SISLABWEB 1.0 - Digita Resultados de Pesquisa Plantas";
+$page_title = "SISLABWEB 1.0 - Digita Resultados de Pesquisa";
 include '../../view/template/cabecalho.php';
+include '../../entidade/Planta.php';
+require_once '../../view/restrito.php';
+
+$dao = new Planta();
+$ultimoId = $dao->lista_ultimo_id();
+
+
 ?>
 
 
@@ -52,7 +59,7 @@ include '../../view/template/cabecalho.php';
         padding: 0.2em;
         border: 1px solid #CCC;
         box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-        display: block;
+        display:  block;
     }
 
     .campo select option {
@@ -64,124 +71,100 @@ include '../../view/template/cabecalho.php';
     }
 
 </style>
-<script type="text/javascript">
-    function confere() {
-        if (document.getElementById("Fator").value == "") {
-            alert("Por favor, preencha o Fator.");
-            return false;
-        }
-       
-        return true;
-    }
 
-
-
-</script>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="artsplantas">
+            
                 <div class="page-header">
                     <br><br><br>
-                    <center><h1>Digita Resultado Pesquisa</h1></center>
+                    <center><h1>Entrada manual de dados</h1></center>
                 </div>
-                <form name="form" method="post" onSubmit="return confere()" enctype="multipart/form-data" action="salvar_planta.php">
-
-
+                <form name="form" method="post" enctype="multipart/form-data" action="salvar_planta.php">
                     <center>
                         <fieldset class="grupo">
                             <div class="campo">
-                                <label for="cidade">Nº Lab</label>
-                                <input type="text" id="nlab" name="nlab" style="width: 4em" value="" />
+                                <label>Nº Lab</label>
+                                <input  type="text" id="nlab" name="nlab"  value="<?php echo $ultimoId['MaximoId'] + 1; ?>" readonly="readonly" />
                             </div>
 
                             <div class="campo">
-                                <label for="estado">Fator</label>
-                                <input type="text" id="Fator" name="Fator" style="width: 5em" value="" />
+                                <label>Pesquisador</label>
+                                <input hidden id="Pesquisador" name="Pesquisador" style="width: 8em" value="<?php echo $_SESSION['usuarioNome']; ?>" />
+                                <br><label class="breadcrumb"><?php echo $_SESSION['usuarioNome'];?></label>
                             </div>
 
                             <div class="campo">
-                                <label for="estado">Vol. Gasto</label>
-                                <input type="text" id="VolGasto" name="VolGasto" style="width: 7em" value="" />
-
+                                <label>C</label>
+                                <input type="text" id="C" name="C" style="width: 5em" value="" />
+                            </div>
+                            
+                            <div class="campo">
+                                <label>N</label>
+                                <input type="text" id="N" name="N" style="width: 5em" value="" />
                             </div>
 
                             <div class="campo">
-                                <label for="estado">P</label>
+                                <label>P</label>
                                 <input type="text" id="P" name="P" style="width: 5em" value="" />
-
                             </div>
-
-
-                            <div class="campo">
-                                <label for="estado">K</label>
+                            
+                              <div class="campo">
+                                <label>K</label>
                                 <input type="text" id="K" name="K" style="width: 5em" value="" />
-
                             </div>
 
-
                             <div class="campo">
-                                <label for="estado">Ca</label>
+                                <label>Ca</label>
                                 <input type="text" id="Ca" name="Ca" style="width: 5em" value="" />
-
                             </div>
 
                             <div class="campo">
-                                <label for="estado">Mg</label>
-                                <input type="text" id="Mg" name="Mg" style="width: 7em" value="" />
+                                <label>Mg</label>
+                                <input type="text" id="Mg" name="Mg" style="width: 5em" value="" />
                             </div>
 
+                            
 
                             <div class="campo">
-                                <label for="estado">S</label>
-                                <input type="text" id="S" name="S" style="width: 5em" value="" />
-                            </div>
-
-
-                            <div class="campo">
-                                <label for="estado">Cu</label>
-                                <input type="text" id="Cu" name="Cu" style="width: 6em" value="" />
-                            </div>
-
-
-                            <div class="campo">
-                                <label for="estado">Fe (mg dm-3)</label>
-                                <input type="text" id="Fe" name="Fe" style="width: 8em" value="" />
+                                <label>S</label>
+                                <input type="text" id="S" name="S" style="width: 6em" value="" />
                             </div>
 
                             <div class="campo">
-                                <label for="estado">Mn(mg dm-3)</label>
-                                <input type="text" id="Mn" name="Mn" style="width: 8em" value="" />
+                                <label>Cu</label>
+                                <input type="text" id="Cu" name="Cu" style="width: 5em" value="" />
                             </div>
-
 
                             <div class="campo">
-                                <label for="estado">Zn (mg dm-3)</label>
-                                <input type="text" id="Zn" name="Zn" style="width: 8em" value="" />
+                                <label>Fe</label>
+                                <input type="text" id="Fe" name="Fe" style="width: 5em" value="" />
                             </div>
-
 
                             <div class="campo">
-                                <label for="estado">B (mg dm-3)</label>
-                                <input type="text" id="B" name="B" style="width: 8em" value="" />
+                                <label>Mn</label>
+                                <input type="text" id="Mn" name="Mn" style="width: 5em" value="" />
                             </div>
 
+                            <div class="campo">
+                                <label>Zn</label>
+                                <input type="text" id="Zn" name="Zn" style="width: 5em" value="" />
+                            </div>
+
+                            <div class="campo">
+                                <label>B</label>
+                                <input type="text" id="B" name="B" style="width: 5em" value="" />
+                            </div>
+
+                                                 
                             <div class="campo">
                                 <br>
-                                <button class="btn-xs btn-success"type="submit" name="submit">Salvar</button>
+                                <button class="btn-xs btn-success" type="submit" name="submit">Salvar</button>
                             </div>
                         </fieldset>              
                     </center>
-
-
+                </form>
             </div>
 
-        </div>
-
-
-
-
-
         <?php
-        include '../../view/template/rodape.php';
-        ?>
+include '../../view/template/rodape.php';

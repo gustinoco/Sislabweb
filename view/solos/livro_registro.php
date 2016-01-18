@@ -15,21 +15,24 @@ $daoPropriedade = new Propriedade();
 $usuario = $_SESSION['usuarioNome'];
 
 if ($_SESSION['Permissao'] == "0") {
-                            $boletins = $dao->listar_boletim_todos();
-                        }
-                        else
-                        {
-                            $boletins = $dao->listar_boletins($usuario);
-
-                        }
-
+    $boletins = $dao->lista_boletim();
+} else {
+    $boletins = $dao->lista_boletim_pesquisador($usuario);
+}
 ?>
 
 <script type="text/javascript" charset="utf-8">
-    $(document).ready(function () {
-        $('#livro_registro').DataTable();
 
+ $(document).ready(function () {
+        $('#livro_registro').dataTable({
+            "bProcessing": true,
+            "bPaginate": false,
+            "bStateSave": true
+
+
+        });
     });
+
 
 
 
@@ -76,16 +79,14 @@ if ($_SESSION['Permissao'] == "0") {
                     <tr>
                         <th>ID</th>
                         <th>Data</th>
-                        <th>Cliente</th>
+                        <th style="width: 15%">Cliente</th>
                         <th>Propriedade</th>
                         <th>Pesquisa</th>
-                        <th>Cultura</th>
-                        <th>Sistema</th>
                         <th>Valor</th>
-                        <th>Observações</th>                           
-                        <th>Amostras</th>
-                        <th>Editar</th>
+                        <th style="width: 15%">Observações</th>                           
+                        <th style="width: 35%">Amostras</th>
                         <th>Imprimir</th>
+                        <th>Editar</th>
                         <?php
                         if ($_SESSION['Permissao'] == "0") {
                             echo '<th>Excluir</th>';
@@ -97,9 +98,9 @@ if ($_SESSION['Permissao'] == "0") {
                 </thead>
 
                 <tbody>
-<?php
-foreach ($boletins as $res) {
-    ?>
+                    <?php
+                    foreach ($boletins as $res) {
+                        ?>
 
 
                         <tr>
@@ -108,65 +109,54 @@ foreach ($boletins as $res) {
 
 
                         <td><div>
-    <?php echo $res->Id; ?>
+                                <?php echo $res->Id; ?>
                                 <input name="Id" id="Id" type="hidden" value="<?php echo $res->Id; ?>" />
                             </div></td>
 
 
                         <td> <div>
-    <?php echo $res->Data_entrada; ?>
+                                <?php echo $res->Data_entrada; ?>
                             </div></td>
 
                         <td><div>
 
-    <?php
-    $clientess = $daoCliente->listar_cliente_especifico((int) $res->Id_cliente);
+                                <?php
+                                $clientess = $daoCliente->listar_cliente_especifico((int) $res->Id_cliente);
 
 
-    echo $clientess->Nome;
-    ?> 
+                                echo $clientess->Nome;
+                                ?> 
                             </div></td>
 
                         <td><div>                                        
-    <?php
-        $propriedades = $daoPropriedade->listar_propriedade_especifica((INT)$res->Propriedade);
+                                <?php
+                                $propriedades = $daoPropriedade->listar_propriedade_especifica((INT) $res->Propriedade);
 
-        echo $propriedades->Nome; 
-    
-    
-?>
+                                echo $propriedades->Nome;
+                                ?>
 
                             </div></td>
 
                         <td><div><center>
-    <?php
-    if ($res->Pesquisa == 1) {
-        echo '<i class="fa fa-check"></i>';
-    } else {
-        echo '<i class="fa fa-ban"></i>';
-    }
-    ?>
+                                    <?php
+                                    if ($res->Pesquisa == 1) {
+                                        echo '<i class="fa fa-check"></i>';
+                                    } else {
+                                        echo '<i class="fa fa-ban"></i>';
+                                    }
+                                    ?>
 
                                 </center></div></td>
 
 
-                        <td><div>
-    <?php echo $res->Cultura; ?>
-
-                            </div></td>
 
 
                         <td><div>
-    <?php echo $res->Sistema; ?>
-
+                                <?php echo $res->Valor; ?>
                             </div></td>
 
                         <td><div>
-    <?php echo $res->Valor; ?>
-                            </div></td>
-
-                        <td><div>
-    <?php echo $res->Observacao; ?>
+                                <?php echo $res->Observacao; ?>
 
                             </div></td>
 
@@ -174,15 +164,25 @@ foreach ($boletins as $res) {
 
 
                         <td><div>
-    <?php
-    $solos = $daoSolo->listar_boletins((int) $res->Id);
-    foreach ($solos as $res2) {
-        echo '<strong>' . $res2->Id . ', </strong>';
-    }
-    ?>
+                                <?php
+                                $solos = $daoSolo->listar_solo_idboletim((int) $res->Id);
+                                foreach ($solos as $res2) {
+                                    echo '<strong>' . $res2->Id . ', </strong>';
+                                }
+                                ?>
 
                             </div></td>
 
+                            
+                            <td><div>
+
+                                <!---<a class="btn btn-xs btn-success center-block" href="javascript:abrir('imprime_comprovante_boletim.php',<?php echo $res->Id; ?>);">Comprovante</a> ---->                              
+                                <br>
+                                <a class="btn btn-xs btn-success center-block" href="javascript:abrir('imprime_resultados_boletim.php',<?php echo $res->Id; ?>);">Resultados</a>                              
+                            </div></td>
+
+                            
+                            
                         <td><div>
                                 <a class="btn btn-xs btn-warning center-block" href="../formularios/form_boletim_solo.php?id=<?php echo $res->Id; ?>">Boletim</a>                              
                                 <br>
@@ -190,22 +190,16 @@ foreach ($boletins as $res) {
 
                             </div></td>
 
-                        <td><div>
-
-                                <a class="btn btn-xs btn-success center-block" href="javascript:abrir('imprime_comprovante_boletim.php',<?php echo $res->Id; ?>);">Comprovante</a>                              
-                                <br>
-                                <a class="btn btn-xs btn-success center-block" href="javascript:abrir('imprime_resultados_boletim.php',<?php echo $res->Id; ?>);">Resultados</a>                              
-                            </div></td>
-
-    <?php
-    if ($_SESSION['Permissao'] == "0") {
-        ?>
+                        
+                        <?php
+                        if ($_SESSION['Permissao'] == "0") {
+                            ?>
                             <td><div>
-
+                                    <br>
                                     <a onclick="confirmacao2(<?php echo $res->Id; ?>, '../formularios/salvar_formulario_solo.php')" class="btn btn-xs btn-danger"  value="Excluir" >Excluir</a>
                                 </div></td><?php
-                }
-                ?>                             
+                        }
+                        ?>                             
 
 
 
@@ -216,7 +210,7 @@ foreach ($boletins as $res) {
 
                     </tr>
 
-<?php } ?>                    
+                <?php } ?>                    
                 </tbody>
 
             </table>
@@ -225,6 +219,6 @@ foreach ($boletins as $res) {
 
 
 
-<?php
-include '../../view/template/rodape.php';
-?>
+            <?php
+            include '../../view/template/rodape.php';
+            ?>

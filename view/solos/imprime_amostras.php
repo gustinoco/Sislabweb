@@ -4,7 +4,7 @@ require_once '../../view/restrito.php';
 $dao = new Solo();
 $usuario = $_SESSION['usuarioNome'];
 if (isset($_GET['id'])) {
-    $solos = $dao->listar_solo_com_id_boletim_usuario((int) $_GET['id'], $usuario);
+    $solos = $dao->listar_solo_idboletim((int) $_GET['id']);
 } else {
     $solos = $dao->listar_solo($usuario);
 }
@@ -25,7 +25,39 @@ if (isset($_GET['id'])) {
                 "info": false
             });
         });
+        
+        
     </script>
+    <style media="print,screen">
+        .componentes{
+            text-align: justify;
+            font-size: 10px;
+            border-bottom: 0px solid #ddd;
+
+        }
+
+        @media print {
+            thead {display: table-header-group;
+            }
+        }
+
+        #example   td{
+            text-align: center;
+            border: 2px #000 solid; 
+        }
+
+        #example th{
+            border: 2px #003333 solid;
+        }
+        #example tbody{
+            overflow: no-display;
+            height: 100px;
+
+        }
+
+
+    </style>
+
 </head>
 <body onload="focus();
         print();
@@ -41,28 +73,17 @@ if (isset($_GET['id'])) {
             <th>Al</th>
             <th>Ca</th>
             <th>Mg</th>
-            <th>HAl3</th>
-            <th>Kmg3</th>
-            <th>Fator</th>
+            <th>H+Al3</th>
+            <th>K</th>
             <th>PMehl</th>
-            <th>PResin</th>
             <th>Cu</th>
             <th>Fe</th>
             <th>Mn</th>
-            <th>Zn</th>
-            <th>B</th>
-            <th>Norm</th>
-            <th>Massa</th>
-            <th>VolG</th>
-            <th>Dicr.</th>
-            <th>TOC</th>
-            <th>Lei1</th>
-            <th>Temp1</th>
-            <th>Lei2</th>
-            <th>Temp2</th>
-
-
-
+            <th>Zn</th>         
+            <th>Mo</th>
+            <th>Areia</th>
+            <th>Silte</th>
+            <th>Argila</th>
         </tr>
     </thead>
 
@@ -110,13 +131,11 @@ if (isset($_GET['id'])) {
                 </div></td>
 
             <td> <div class="campo">
-                    <?php echo $res->Kmgdm3; ?>
+                    <?php echo $res->K; ?>
                 </div></td>
 
 
-            <td> <div class="campo">
-                    <?php echo $res->Fator; ?>
-                </div></td>
+            
 
 
             <td>  <div class="campo">
@@ -125,10 +144,7 @@ if (isset($_GET['id'])) {
 
 
 
-            <td> <div class="campo">
-                    <?php echo $res->Presin; ?>
-                </div></td>
-
+            
             <td> <div class="campo">
                     <?php echo $res->Cu; ?>
                 </div></td>
@@ -149,52 +165,26 @@ if (isset($_GET['id'])) {
                 </div></td>
 
 
-            <td> <div class="campo">
-                    <?php echo $res->B; ?>
-                </div></td>
 
             <td>  <div class="campo">
-                    <?php echo $res->Normalidade; ?>
+                    <?php echo $res->Materia_organica; ?>
                 </div></td>
 
 
-            <td>  <div class="campo">
-                    <?php echo $res->Massa; ?>
-                </div></td>
-
-
-            <td>   <div class="campo">
-                    <?php echo $res->Vol_gasto; ?>
-                </div></td>
-
-
-            <td>  <div class="campo">
-                    <?php echo $res->Dicromato; ?>
-                </div></td>
-
-
-            <td>   <div class="campo">
-                    <?php echo $res->Toc; ?>
-                </div></td>
-
-
-            <td>   <div class="campo">
-                    <?php echo $res->Leitura1; ?>
-                </div></td>
-
+        
 
             <td> <div class="campo">
-                    <?php echo $res->Temp1; ?>
+                    <?php echo $res->Areia; ?>
                 </div></td>
 
 
             <td>   <div class="campo">
-                    <?php echo $res->Leitura2; ?>
+                    <?php echo $res->Silte; ?>
                 </div></td>
 
 
             <td>  <div class="campo">
-                    <?php echo $res->Temp2; ?>
+                    <?php echo $res->Argila; ?>
                 </div></td>
 
         </tr>

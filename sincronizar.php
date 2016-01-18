@@ -10,7 +10,7 @@ $excel = new Spreadsheet_Excel_Reader();
 $pesquisador = $_GET['pesquisador'];
 
 
-$Planilha1 = "planilhas/$pesquisador/maquina1.xls";
+$Planilha1 = "planilhas/$pesquisador/Solo/maquina1.xls";
 
 
 $read1 = excel_read_file($Planilha1);
@@ -18,16 +18,26 @@ $read1 = excel_read_file($Planilha1);
 
 for ($i = 2; $i <= $read1[0]; $i++) {
     $Id = $read1[1][$i][1];
-    $Cu = $read1[1][$i][2];
-    $Fe = $read1[1][$i][3];
-    $Mn = $read1[1][$i][4];
-    $Zn = $read1[1][$i][5];
-    $B = $read1[1][$i][6];
+    $Al = $read1[1][$i][2];
+    $K = $read1[1][$i][3];
+    editar1($Id, number_format($Al, 2, ",", ""), number_format($K, 2, ",", ""), $pesquisador);
+}
 
-
-
-
-    editar1($Id, $Cu, $Fe, $Mn, $Zn, $B, $pesquisador);
+function editar1($Id, $Al, $K, $Pesquisador) {
+    $sql = 'UPDATE solo SET 
+        Al = :Al ,K = :K, Data_cadastro = :Data_cadastro WHERE Id = :Id';
+    try {
+        $conn = getConexao();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array(
+            ':Al' => $Al,
+            ':K' => $K,
+            ':Data_cadastro' => date("Y-m-d H:i:s"),
+            ':Id' => (int) $Id
+        ));
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
 }
 
 function excel_read_file($name) {
@@ -39,7 +49,6 @@ function excel_read_file($name) {
         $y = 1;
         while ($y <= $excel->sheets[0]['numCols']) {
             $cell[$x][$y] = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-
             $y++;
         }
         $x++;
@@ -48,28 +57,6 @@ function excel_read_file($name) {
     return ($arr);
 }
 
-function editar1($Id, $Cu, $Fe, $Mn, $Zn, $B, $Pesquisador) {
-    $sql = 'UPDATE SOLO SET 
-        Cu = :Cu ,Fe = :Fe, Mn = :Mn, Zn = :Zn, B = :B, Data_cadastro = :Data_cadastro, Pesquisador = :Pesquisador WHERE Id = :Id';
-    try {
-        $conn = getConexao();
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(array(
-            ':Cu' => $Cu,
-            ':Fe' => $Fe,
-            ':Mn' => $Mn,
-            ':Zn' => $Zn,
-            ':B' => $B,
-            ':Pesquisador' => $Pesquisador,
-            ':Data_cadastro' => date("Y-m-d H:i:s"),
-            ':Id' => (int) $Id
-        ));
-    } catch (PDOException $e) {
-        echo 'Error: ' . $e->getMessage();
-    }
-}
 
-session_start();
-$_SESSION['sincronizar1'] = 'Arquivo 1 foi importado com sucesso.';
 header("Location: sincronizar2.php?pesquisador=" . $pesquisador);
 exit;

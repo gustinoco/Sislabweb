@@ -1,5 +1,5 @@
 <?php
-$connect=mysql_connect("localhost:3307","root","embrapa");
+$connect=mysql_connect("areia.cpao.embrapa.br","edmilson","senha10");
 if (!$connect) {
 die('Could not connect: ' . mysql_error());
 }

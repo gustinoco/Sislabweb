@@ -46,7 +46,7 @@ include '../../view/template/cabecalho.php';
 
 //Função datatable- para funcionamento da tabela de lista de clientes.
     $(document).ready(function () {
-    $('#tabelaPesquisador').dataTable({
+        $('#tabelaPesquisador').dataTable({
             "bProcessing": true,
             "bPaginate": false,
             "bStateSave": true
@@ -143,7 +143,7 @@ include '../../view/template/cabecalho.php';
                                 <label class="control-label col-md-1"  for="Email">E-mail:</label>
                                 <div class="col-sm-11">            
                                     <input name="Email" id="Email" 
-                                           maxlength="16" type="text" class="form-control"  style="width: 200px" value="<?php
+                                           type="text" class="form-control"  style="width: 200px" value="<?php
                                            if (isset($editar)) {
                                                echo $pesquisador->Email;
                                            }
@@ -183,7 +183,7 @@ include '../../view/template/cabecalho.php';
                             <hr>
 
                             <?php if (isset($editar)) {
-                                ?>  <input name="Id" hidden="hidden" value="<?php echo $pesquisador->Login; ?>"/>                          <button class="btn btn-default center-block" type="submit" style="width: 250px">Salvar alterações</button>
+                                ?>  <input name="Id" hidden="hidden" value="<?php echo $pesquisador->Id; ?>"/>                          <button class="btn btn-default center-block" type="submit" style="width: 250px">Salvar alterações</button>
                                 <?php
                             } else {
                                 ?>
@@ -267,7 +267,9 @@ include '../../view/template/cabecalho.php';
                                         <?php
                                         if ($_SESSION['Permissao'] == "0") {
                                             ?>
-                                            <a  onclick="confirmacao_pesquisador(<?php echo $res->Login; ?>, '<?php echo $res->Login; ?>', 'salvar_pesquisador.php')" class="btn btn-xs btn-danger">Excluir</a>
+                                            <a class="btn btn-xs btn-danger" href="salvar_pesquisador.php?deletar=<?php echo $res->Login; ?>">Excluir</a>
+
+
                                             <?php
                                         }
                                         ?>        

@@ -8,7 +8,7 @@ $excel = new Spreadsheet_Excel_Reader();
 
 
 $pesquisador = $_GET['pesquisador'];
-$Planilha2 = "planilhas/$pesquisador/maquina2.xls";
+$Planilha2 = "planilhas/$pesquisador/Solo/maquina2.xls";
 
 
 
@@ -17,12 +17,30 @@ $Planilha2 = "planilhas/$pesquisador/maquina2.xls";
 $read2 = excel_read_file($Planilha2);
 for ($i = 2; $i <= $read2[0]; $i++) {
     (int) $Id = $read2[1][$i][1];
-    $pHCaCl2 = $read2[1][$i][2];
-    $Al = $read2[1][$i][3];
+    $Phcacl2 = $read2[1][$i][2];
+    
+    $Hal3 = $read2[1][$i][4];
 
 
 
-    editar2($Id, $pHCaCl2, $Al, $pesquisador);
+    editar2($Id, number_format($Phcacl2, 2, ",", ""),number_format($Hal3, 2, ",", ""), $pesquisador);
+}
+
+function editar2($Id, $Phcacl2, $Hal3, $Pesquisador) {
+    $sql = 'UPDATE solo SET 
+        Phcacl2 = :Phcacl2, Hal3 = :Hal3, Data_cadastro = :Data_cadastro WHERE Id = :Id';
+    try {
+        $conn = getConexao();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array(
+            ':Phcacl2' => $Phcacl2,
+            ':Hal3' => $Hal3,
+            ':Data_cadastro' => date("Y-m-d H:i:s"),
+            ':Id' => (int) $Id
+        ));
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
 }
 
 function excel_read_file($name) {
@@ -43,24 +61,5 @@ function excel_read_file($name) {
     return ($arr);
 }
 
-function editar2($Id, $pHCaCl2, $Al, $Pesquisador) {
-    $sql = 'UPDATE SOLO SET 
-        pHCaCl2 = :pHCaCl2 , Al = :Al, Data_cadastro = :Data_cadastro, Pesquisador = :Pesquisador WHERE Id = :Id';
-    try {
-        $conn = getConexao();
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(array(
-            ':pHCaCl2' => $pHCaCl2,
-            ':Al' => $Al,
-            ':Pesquisador' => $Pesquisador,
-            ':Data_cadastro' => date("Y-m-d H:i:s"),
-            ':Id' => (int) $Id
-        ));
-    } catch (PDOException $e) {
-        echo 'Error: ' . $e->getMessage();
-    }
-}
-session_start();
-$_SESSION['sincronizar2'] = 'Arquivo 2 foi importado com sucesso.';
-header("Location: sincronizar3.php?pesquisador=".$pesquisador);
+header("Location: sincronizar3.php?pesquisador=" . $pesquisador);
 exit;

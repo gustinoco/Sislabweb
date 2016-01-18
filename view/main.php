@@ -62,25 +62,16 @@ else if($_SESSION['Permissao'] == "1"){
 
 
 if ($_GET['sincronizador']) {
-                $mensagem1 = $_SESSION['sincronizar1'];
-                $mensagem2 = $_SESSION['sincronizar2'];
-                $mensagem3 = $_SESSION['sincronizar3'];
-                $mensagem4 = $_SESSION['sincronizar4'];
-                $mensagem5 = $_SESSION['sincronizar5'];
+                $mensagem = $_SESSION['sincronizar'];
+               
                 ?>  
                 <div class="alert alert-success fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?php echo $mensagem1 ?><br>
-                <?php echo $mensagem2 ?> <br>
-                <?php echo $mensagem3 ?><br>
-                <?php echo $mensagem4 ?><br>
-                <?php echo $mensagem5 ?></div>
+                    <?php echo $mensagem ?><br>
+           
                     <?php
-                    unset($_SESSION['sincronizar1']);
-                    unset($_SESSION['sincronizar2']);
-                    unset($_SESSION['sincronizar3']);
-                    unset($_SESSION['sincronizar4']);
-                    unset($_SESSION['sincronizar5']);
+                    unset($_SESSION['sincronizar']);
+                  echo '</div>';
                     
                 }
 
